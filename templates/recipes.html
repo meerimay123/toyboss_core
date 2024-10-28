@@ -1,4 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content %}
   <body>
     <header class="header">
       <div class="container">
@@ -10,18 +13,21 @@
             <div class="navigation">
               <ul class="nav">
                 <div class="nav-group">
-                  <li class="nav-link active"><a href="#">О нас</a></li>
-                  <li class="nav-link"><a href="#">Продукция</a></li>
-                  <li class="nav-link"><a href="#">Публикации</a></li>
+                  <li class="nav-link active"><a href="{% url 'about' %}">О нас</a></li>
+                  <li class="nav-link"><a href="{% url 'product' %}">Продукция</a></li>
+                  <li class="nav-link"><a href="{% url 'publication' %}">Публикации</a></li>
                 </div>
                 <div class="nav-group">
-                  <li class="nav-link"><a href="#">Рецепты</a></li>
-
+                  <li class="nav-link"><a href="{% url 'recipes' %}">Рецепты</a></li>
                 </div>
               </ul>
             </div>
             <div class="header-language">
-              <div class="network-link"><a href="#"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a></div>
+              <div class="network-link">
+                <a href="{{ social_media.instagram_list }}"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
+                <a href="{{ social_media.facebook_list }}"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
+                <a href="{{ social_media.phone_number }}"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
+              </div>
               <div class="language-link"><a href="#"><img src="{% static 'img/svg/kg-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/ru-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/en-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/kz-icon.svg' %}"/></a></div>
             </div>
           </div>
@@ -36,30 +42,39 @@
           </div>
           <div class="product-right">
             <div class="about-company-all">
-              <div class="crumb"><a href="#">Главная</a><a href="#">Продукция</a><span> Колбасы</span></div>
+              <div class="crumb"><a href="{% url 'home' %}">Главная</a><a href="{% url 'product' %}">Продукция</a><span> Колбасы</span></div></div>
               <div class="about-company__content">
+                {% for item in page_obj %}
                 <div class="about-company">
-                  <h2 class="h2"> Sausage, Mushroom and Cranberry Tart</h2>
-                  <p>Bake eggs, cheese, mushrooms, cranberries and Jimmy Dean® Pork Sausage in a fluted tart pan for a dinner as delicious as it looks!</p><img src="{% static 'img/jpg/recipes.jpg' %}"/><a href="#"></a>
+                  <h2 class="h2">{{ item.title }}</h2>
+                  <p>{{ item.description }}</p><img src="{{ item.image.url }}"/><a href="{% url 'recipes-detail' item.id %}"></a>
                 </div>
-                <div class="about-company">
-                  <h2 class="h2">  Sausage, Mushroom and Cranberry Tart</h2>
-                  <p>Bake eggs, cheese, mushrooms, cranberries and Jimmy Dean® Pork Sausage in a fluted tart pan for a dinner as delicious as it looks!</p><img src="{% static 'img/jpg/recipes.jpg' %}"/><a href="#"></a>
-                </div>
-                <div class="about-company">
-                  <h2 class="h2">  Sausage, Mushroom and Cranberry Tart</h2>
-                  <p>Bake eggs, cheese, mushrooms, cranberries and Jimmy Dean® Pork Sausage in a fluted tart pan for a dinner as delicious as it looks!</p><img src="{% static 'img/jpg/recipes.jpg' %}"/><a href="#"></a>
-                </div>
+                {% endfor %}
               </div>
               <div class="publication__pagination">
                 <div class="pagination__left"><a class="arrow-left disabled" href="#"></a></div>
-                <div class="publication__pagination-num"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">...</a><a href="#">85</a></div>
+                <div class="publication__pagination-num">
+
+                {% if page_obj.has_previous %}
+                  <a href="?page={{ page_obj.previous_page_number }}">Предыдущее</a>
+                {% endif %}
+
+
+                {% for p in page_obj.paginator.page_range %}
+                  <a class="{% if page_obj.number == p %}active{% endif %}" href="?page={{ p }}">{{ p }}</a>
+                {% endfor %}
+
+
+                {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}">Следующее</a>
+                {% endif %}
+
+                </div>
                 <div class="pagination__right"><a class="arrow-right" href="#"></a></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
   </body>
 {% endblock %}

@@ -13,20 +13,20 @@
             <div class="navigation">
               <ul class="nav">
                 <div class="nav-group">
-                  <li class="nav-link active"><a href="#">О нас</a></li>
-                  <li class="nav-link"><a href="#">Продукция</a></li>
-                  <li class="nav-link"><a href="#">Публикации</a></li>
+                  <li class="nav-link active"><a href="{% url 'about' %}">О нас</a></li>
+                  <li class="nav-link"><a href="{% url 'product' %}">Продукция</a></li>
+                  <li class="nav-link"><a href="{% url 'publication' %}">Публикации</a></li>
                 </div>
                 <div class="nav-group">
-                  <li class="nav-link"><a href="#">Рецепты</a></li>
+                  <li class="nav-link"><a href="{% url 'recipes' %}">Рецепты</a></li>
                 </div>
               </ul>
             </div>
             <div class="header-language">
               <div class="network-link">
-                <a href="#"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
+                <a href="{{ social_media.instagram_list }}"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
+                <a href="{{ social_media.facebook_list }}"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
+                <a href="{{ social_media.phone_number }}"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
               </div>
               <div class="language-link">
                 <a href="#"><img src="{% static 'img/svg/kg-icon.svg' %}"/></a>
@@ -52,7 +52,7 @@
                     <div class="product-img3" smooth-parallax="smooth-parallax" start-movement="0" end-movement="1" start-position-y="0.1" end-position-y="3"><img src="{% static 'img/png/product-img33.png' %}"/></div>
                     <div class="product-slider-heading">
                       <h3> Узнайте как вкуснее</h3>
-                      <p> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p><a class="link__detail" href="#">Наша продукция</a>
+                      <p> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p><a class="link__detail" href="{% url 'product' %}">Наша продукция</a>
                     </div>
                   </div>
                 </div>
@@ -69,8 +69,8 @@
             </div>
             <div class="about-us__content-right">
               <h2><a href="#">Производитель колбасных изделий халяль №1 в Кыргызстане</a></h2>
-              <p> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p>
-              <div class="content-right__img"><img src="{% static 'img/png/img.png' %}"/></div><a class="link__detail" href="#">подробнее о нас</a>
+              <p>{{ about.description|safe }}</p>
+              <div class="content-right__img"><img src="{{ about.image.url }}"/></div><a class="link__detail" href="{% url 'about' %}">подробнее о нас</a>
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@
           <div class="whats-tastier__content">
             <div class="product-slider-heading">
               <h3> Узнайте как вкуснее</h3>
-              <p> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p><a class="link__detail" href="#">рецепты</a>
+              <p> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p><a class="link__detail" href="{% url 'recipes' %}">рецепты</a>
             </div>
           </div>
         </div>
@@ -148,15 +148,15 @@
               <div class="publications__card">
                 <div class="about-us__content-right">
                   <h2 data-mh="my-group"><a href="#">Производитель колбасных</a></h2>
-                  <p data-mh="my-group1"> Миссия компании заключается в том</p>
-                  <div class="content-right__img"><img src="{% static 'img/png/img.png' %}"/></div><a class="link__detail" href="#">подробнее о нас</a>
+                  <p data-mh="my-group1">{{ about.description|safe }}</p>
+                  <div class="content-right__img"><img src="{{ about.description|safe }}"/></div><a class="link__detail" href="{% url 'about' %}">подробнее о нас</a>
                 </div>
               </div>
               <div class="publications__card">
                 <div class="about-us__content-right">
                   <h2 data-mh="my-group"><a href="#">Производитель колбасных изделий халяль №1 в Кыргызстане</a></h2>
-                  <p data-mh="my-group1"> Миссия компании заключается в том, чтобы прикладывать все силы для улучшения качества жизни наших потребителей.</p>
-                  <div class="content-right__img"><img src="{% static 'img/png/img.png' %}"/></div><a class="link__detail" href="#">подробнее о нас</a>
+                  <p data-mh="my-group1">{{ about.description|safe }}</p>
+                  <div class="content-right__img"><img src="{{ about.description|safe }}"/></div><a class="link__detail" href="{% url 'about' %}">подробнее о нас</a>
                 </div>
               </div>
             </div>

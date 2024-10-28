@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{% static 'fonts/PTSerif/stylesheet.css' %}"/>
     <link rel="stylesheet" href="{% static 'fonts/PTSans/stylesheet.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-    <title>About company</title>
   </head>
+
   {% block content %}
   {% endblock %}
 
@@ -26,10 +26,10 @@
           <div class="footer-nav-content">
             <nav class="nav">
               <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Продукция</a></li>
-                <li><a href="#">Публикации</a></li>
-                <li><a href="#">Рецепты</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'product' %}">Продукция</a></li>
+                <li><a href="{% url 'publication' %}">Публикации</a></li>
+                <li><a href="{% url 'recipes' %}">Рецепты</a></li>
               </ul>
             </nav>
             <div class="footer-link">

@@ -13,21 +13,20 @@
             <div class="navigation">
               <ul class="nav">
                 <div class="nav-group">
-                  <li class="nav-link active"><a href="#">О нас</a></li>
-                  <li class="nav-link"><a href="#">Продукция</a></li>
-                  <li class="nav-link"><a href="#">Публикации</a></li>
+                  <li class="nav-link active"><a href="{% url 'about' %}">О нас</a></li>
+                  <li class="nav-link"><a href="{% url 'product' %}">Продукция</a></li>
+                  <li class="nav-link"><a href="{% url 'publication' %}">Публикации</a></li>
                 </div>
-                <div class="nav-group"></div>
                 <div class="nav-group">
-                  <li class="nav-link"><a href="#">Рецепты</a></li>
+                  <li class="nav-link"><a href="{% url 'recipes' %}">Рецепты</a></li>
                 </div>
               </ul>
             </div>
             <div class="header-language">
               <div class="network-link">
-                <a href="#"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
+                <a href="{{ social_media.instagram_list }}"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
+                <a href="{{ social_media.facebook_list }}"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
+                <a href="{{ social_media.phone_number }}"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
               </div>
               <div class="language-link">
                 <a href="#"><img src="{% static 'img/svg/kg-icon.svg' %}"/></a>

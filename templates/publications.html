@@ -13,20 +13,20 @@
             <div class="navigation">
               <ul class="nav">
                 <div class="nav-group">
-                  <li class="nav-link active"><a href="#">О нас</a></li>
-                  <li class="nav-link"><a href="#">Продукция</a></li>
-                  <li class="nav-link"><a href="#">Публикации</a></li>
+                  <li class="nav-link active"><a href="{% url 'about' %}">О нас</a></li>
+                  <li class="nav-link"><a href="{% url 'product' %}">Продукция</a></li>
+                  <li class="nav-link"><a href="{% url 'publication' %}">Публикации</a></li>
                 </div>
                 <div class="nav-group">
-                  <li class="nav-link"><a href="#">Рецепты</a></li>
+                  <li class="nav-link"><a href="{% url 'recipes' %}">Рецепты</a></li>
                 </div>
               </ul>
             </div>
             <div class="header-language">
               <div class="network-link">
-                <a href="#"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
-                <a href="#"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
+                <a href="{{ social_media.instagram_list }}"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a>
+                <a href="{{ social_media.facebook_list }}"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a>
+                <a href="{{ social_media.phone_number }}"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a>
               </div>
               <div class="language-link">
                 <a href="#"><img src="{% static 'img/svg/kg-icon.svg' %}"/></a>
@@ -47,35 +47,35 @@
           </div>
           <div class="product-right">
             <div class="about-company-all">
-              <div class="crumb"><a href="#">Главная</a><a href="#">Продукция</a><span> Колбасы</span></div>
+              <div class="crumb"><a href="{% url 'home' %}">Главная</a><a href="{% url 'product' %}">Продукция</a><span> Колбасы</span></div></div>
               <div class="about-company__content">
+                {% for item in page_obj %}
                 <div class="about-company">
-                  <h2 class="h2">  Производитель колбасных издели халяль №1 в Кыргызстане</h2>
-                  <h5 class="h5"> 12.02.2020</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor...<span>подробнее</span></p>
-                  <img src="{% static 'img/png/img.png' %}"/><a href="#"></a>
+                  <h2 class="h2"> {{ item.title }}</h2>
+                  <h5 class="h5"> {{ item.created_date }}</h5>
+                  <p>{{ item.description }}<span>подробнее</span></p>
+                  <img src="{{ item.image.url }}"/><a href="{% url 'publication-detail' item.id %}"></a>
                 </div>
-                <div class="about-company">
-                  <h2 class="h2">  Производитель колбасных издели халяль №1 в Кыргызстане</h2>
-                  <h5 class="h5"> 12.02.2020</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor...<span>подробнее</span></p>
-                  <img src="{% static 'img/png/img.png' %}"/><a href="#"></a>
-                </div>
-                <div class="about-company">
-                  <h2 class="h2">  Производитель колбасных издели халяль №1 в Кыргызстане</h2>
-                  <h5 class="h5"> 12.02.2020</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor...<span>подробнее</span></p>
-                  <img src="{% static 'img/png/img.png' %}"/><a href="#"></a>
-                </div>
+                {% endfor %}
               </div>
               <div class="publication__pagination">
                 <div class="pagination__left"><a class="arrow-left disabled" href="#"></a></div>
                 <div class="publication__pagination-num">
-                  <a class="active" href="#">1</a>
-                  <a href="#">2</a>
-                  <a href="#">3</a>
-                  <a href="#">...</a>
-                  <a href="#">85</a>
+
+                {% if page_obj.has_previous %}
+                  <a href="?page={{ page_obj.previous_page_number }}">Предыдущее</a>
+                {% endif %}
+
+
+                {% for p in page_obj.paginator.page_range %}
+                  <a class="{% if page_obj.number == p %}active{% endif %}" href="?page={{ p }}">{{ p }}</a>
+                {% endfor %}
+
+
+                {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}">Следующее</a>
+                {% endif %}
+
                 </div>
                 <div class="pagination__right"><a class="arrow-right" href="#"></a></div>
               </div>
